@@ -8,7 +8,8 @@ const path = require('path');
 const app = express();
 const PORT = process.env.PORT || 5000;
 const IS_PRODUCTION = process.env.NODE_ENV === 'production';
-const CLIENT_URL = IS_PRODUCTION ? `http://localhost:${PORT}` : 'http://localhost:5173';
+const PUBLIC_URL = process.env.PUBLIC_URL || `http://localhost:${PORT}`;
+const CLIENT_URL = IS_PRODUCTION ? PUBLIC_URL : 'http://localhost:5173';
 
 // Spotify API Setup
 const spotifyApi = new SpotifyWebApi({
@@ -128,9 +129,10 @@ app.get('/api', (req, res) => {
   res.json({ message: 'Lyrica Spotify Lyrics API' });
 });
 
-app.listen(PORT, () => {
+app.listen(PORT, '0.0.0.0', () => {
   console.log(`🎵 Lyrica server running on port ${PORT}`);
   console.log(`Environment: ${IS_PRODUCTION ? 'production' : 'development'}`);
+  console.log(`Public URL: ${PUBLIC_URL}`);
   console.log(`Client URL: ${CLIENT_URL}`);
-  console.log(`Server running on http://localhost:${PORT}`);
+  console.log(`Spotify Redirect URI: ${process.env.SPOTIFY_REDIRECT_URI}`);
 });

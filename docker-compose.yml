@@ -9,6 +9,7 @@ services:
     environment:
       - NODE_ENV=production
       - PORT=1027
+      - PUBLIC_URL=${PUBLIC_URL}
       - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
       - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
       - SPOTIFY_REDIRECT_URI=${SPOTIFY_REDIRECT_URI}
