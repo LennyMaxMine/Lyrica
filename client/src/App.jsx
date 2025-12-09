@@ -183,12 +183,27 @@ function App() {
             lines: parsed || []
           });
           setCurrentLineIndex(-1);
+          
+          // Scroll to top when new lyrics are loaded
+          if (lyricsContainerRef.current) {
+            lyricsContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+          }
         } else {
           setLyricsData({ raw: 'Lyrics not available for this track', synced: false, lines: [] });
+          
+          // Scroll to top even when no lyrics are available
+          if (lyricsContainerRef.current) {
+            lyricsContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+          }
         }
       } catch (err) {
         console.error('Error fetching lyrics:', err);
         setLyricsData({ raw: 'Failed to load lyrics', synced: false, lines: [] });
+        
+        // Scroll to top even on error
+        if (lyricsContainerRef.current) {
+          lyricsContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
+        }
       }
     };
 
@@ -301,6 +316,12 @@ function App() {
           </div>
         </div>
       )}
+      
+      <footer className="AppFooter">
+        <div className="FooterContent">
+          Proof of Concept   |   Early Alpha - Expect & Report bugs to https://bugs.lny.tf   |   Not affiliated with Spotify   |   Built by Lenny  
+        </div>
+      </footer>
     </div>
   )
 }
