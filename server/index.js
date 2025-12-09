@@ -132,6 +132,5 @@ app.listen(PORT, () => {
   console.log(`🎵 Lyrica server running on port ${PORT}`);
   console.log(`Environment: ${IS_PRODUCTION ? 'production' : 'development'}`);
   console.log(`Client URL: ${CLIENT_URL}`);
-});
   console.log(`Server running on http://localhost:${PORT}`);
 });

@@ -25,7 +25,7 @@ RUN npm ci --production
 COPY --from=client-builder /app/client/dist ./client/dist
 
 # Expose port
-EXPOSE 912
+EXPOSE 1027
 
 # Start the server
 CMD ["node", "server/index.js"]

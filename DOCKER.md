@@ -23,7 +23,7 @@ docker build -t lyrica .
 
 # Run the container
 docker run -d \
-  -p 912:912 \
+  -p 1027:1027 \
   --env-file .env \
   --name lyrica \
   lyrica
@@ -43,13 +43,13 @@ Make sure your `.env` file has the correct settings:
 ```env
 SPOTIFY_CLIENT_ID=your_client_id
 SPOTIFY_CLIENT_SECRET=your_client_secret
-SPOTIFY_REDIRECT_URI=http://localhost:912/callback
-PORT=912
+SPOTIFY_REDIRECT_URI=http://localhost:1027/callback
+PORT=1027
 NODE_ENV=production
 ```
 
-**Important**: Update your Spotify app redirect URI to `http://localhost:912/callback` in the Spotify Developer Dashboard.
+**Important**: Update your Spotify app redirect URI to `http://localhost:1027/callback` in the Spotify Developer Dashboard.
 
 ## Access
 
-Once running, access the app at: `http://localhost:912`
+Once running, access the app at: `http://localhost:1027`
