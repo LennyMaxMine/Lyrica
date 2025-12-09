@@ -319,7 +319,7 @@ function App() {
       
       <footer className="AppFooter">
         <div className="FooterContent">
-          Proof of Concept   |   Early Alpha - Expect & Report bugs to https://bugs.lny.tf   |   Not affiliated with Spotify   |   Built by Lenny  
+          Proof of Concept      Early Alpha - Expect & Report bugs to https://bugs.lny.tf      Not affiliated with Spotify      Built by Lenny  
         </div>
       </footer>
     </div>
