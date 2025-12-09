@@ -1,0 +1,725 @@
+/* Reset & Root Styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+:root {
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+  
+  color-scheme: dark;
+  background-color: #000;
+
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  
+  /* Beautiful Lyrics Color Variables */
+  --vocal-idle-opacity: 0.51;
+  --vocal-active-opacity: 1;
+  --vocal-sung-opacity: 0.497;
+  --background-idle-opacity: calc(var(--vocal-idle-opacity) * 0.53921568627);
+  --background-active-opacity: calc(var(--vocal-active-opacity) * 0.8);
+  --background-sung-opacity: calc(var(--vocal-sung-opacity) * 0.6690140845);
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background: #000;
+  overflow: hidden;
+  overscroll-behavior: none;
+}
+
+#root {
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+}
+
+/* App Container */
+.App {
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  background: #000;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Background Container */
+.background-container {
+  position: fixed;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background-size: cover;
+  background-position: center;
+  filter: blur(80px) saturate(2.5) brightness(0.65);
+  opacity: 0.75;
+  z-index: 0;
+  animation: slowZoom 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.background-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  z-index: 1;
+}
+
+@keyframes slowZoom {
+  0% { transform: scale(1); }
+  100% { transform: scale(1.1); }
+}
+
+/* Login View */
+.login-view {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  z-index: 10;
+  position: relative;
+  gap: 2rem;
+}
+
+.login-view h1 {
+  font-size: 4rem;
+  font-weight: 700;
+  color: white;
+  letter-spacing: -0.02em;
+}
+
+.login-view p {
+  font-size: 1.25rem;
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+}
+
+.login-btn {
+  background: white;
+  color: #000;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.1rem;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 600;
+  font-family: inherit;
+}
+
+.login-btn:hover {
+  transform: scale(1.05);
+  box-shadow: 0 8px 30px rgba(255, 255, 255, 0.3);
+}
+
+/* Beautiful Lyrics Page - Fullscreen */
+.BeautifulLyricsPage {
+  width: 100vw;
+  height: 100vh;
+  top: 0;
+  left: 0;
+  position: absolute;
+  overflow: visible;
+  container-type: size;
+  z-index: 10;
+}
+
+.BeautifulLyricsPage:hover {
+  overflow: hidden !important;
+  margin: 0 !important;
+}
+
+.BeautifulLyricsPage .Content {
+  --ContentSidePadding: 0.5cqw;
+  display: block;
+  width: calc(100cqw - (var(--ContentSidePadding) * 2));
+  height: 100cqh;
+  container-type: size;
+  position: relative;
+  top: 0;
+  left: var(--ContentSidePadding);
+  z-index: 100;
+}
+
+/* Fullscreen Specific Styles */
+.BeautifulLyricsPage.Fullscreen .Content {
+  --LyricsPaddingLeft: 17.5vw;
+  --LyricsPaddingRight: 15vw;
+  --PlayPanelWidth: min(30vw, 50vh);
+  --PlayPanelRightSpace: calc(var(--PlayPanelWidth) / 4);
+  --PlayPanelAppliedLeftSpace: calc(50vw - var(--PlayPanelWidth) - var(--PlayPanelRightSpace));
+}
+
+/* Play Panel */
+.PlayPanel {
+  display: block;
+  width: var(--PlayPanelWidth);
+  height: 100vh;
+  padding-top: calc(50vh - (var(--PlayPanelWidth) * 0.6));
+  padding-bottom: 0.5vw;
+  position: absolute;
+  left: var(--PlayPanelAppliedLeftSpace);
+  top: 0;
+  z-index: 102;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
+  container-type: size;
+}
+
+/* Media Space (Album Cover Container) */
+.MediaSpace {
+  width: 100%;
+  aspect-ratio: 1;
+  margin-bottom: 4%;
+  position: relative;
+  container-type: size;
+}
+
+.CoverArt {
+  width: 100%;
+  height: 100%;
+  border-radius: 2vh;
+  overflow: hidden;
+  box-shadow: 0 30px 80px rgba(0, 0, 0, 0.8);
+}
+
+.CoverArt img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+/* Track Info */
+.TrackInfo {
+  width: 100%;
+  margin-bottom: 5%;
+  text-align: center;
+}
+
+.TrackName {
+  font-size: clamp(1rem, 3.5cqw, 1.5rem);
+  font-weight: 700;
+  color: white;
+  margin-bottom: 0.5rem;
+  line-height: 1.2;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+}
+
+.ArtistName {
+  font-size: clamp(0.85rem, 2.5cqw, 1.1rem);
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.7);
+  margin-bottom: 0.25rem;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.AlbumName {
+  font-size: clamp(0.75rem, 2cqw, 0.95rem);
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Progress Section */
+.ProgressSection {
+  width: 100%;
+}
+
+.ProgressBar {
+  width: 100%;
+  height: 4px;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.5rem;
+}
+
+.ProgressFill {
+  height: 100%;
+  background: white;
+  transition: width 0.3s linear;
+  border-radius: 2px;
+}
+
+.TimeDisplay {
+  display: flex;
+  justify-content: space-between;
+  font-size: clamp(0.7rem, 1.8cqw, 0.85rem);
+  color: rgba(255, 255, 255, 0.6);
+  font-weight: 500;
+  font-variant-numeric: tabular-nums;
+}
+
+/* Adjust Lyrics Position when PlayPanel is present */
+.BeautifulLyricsPage.Fullscreen .Content:has(.PlayPanel) {
+  --LyricsPaddingLeft: calc(var(--PlayPanelAppliedLeftSpace) + var(--PlayPanelWidth) + var(--PlayPanelRightSpace) + 5vw);
+}
+
+/* Lyrics Scroll Container */
+.LyricsScrollContainer {
+  display: inline-block;
+  position: relative;
+  width: 100cqw;
+  height: 100cqh;
+  overflow: auto;
+}
+
+.LyricsScrollContainer::-webkit-scrollbar {
+  width: 6px;
+  padding: 5px;
+}
+
+.LyricsScrollContainer::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.LyricsScrollContainer::-webkit-scrollbar-thumb {
+  mix-blend-mode: overlay;
+  background: rgba(252, 249, 249, 0.117);
+  border-radius: 3px;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.LyricsScrollContainer:hover::-webkit-scrollbar-thumb {
+  opacity: 0.5;
+}
+
+/* Mask for fade effect */
+.BeautifulLyricsPage .Content .LyricsScrollContainer {
+  mask-image: linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 16px,
+    #000 24px,
+    #000 calc(100% - 64px),
+    transparent calc(100% - 16px),
+    transparent
+  );
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    transparent 0,
+    transparent 16px,
+    #000 24px,
+    #000 calc(100% - 64px),
+    transparent calc(100% - 16px),
+    transparent
+  );
+}
+
+/* Lyrics Container */
+.Lyrics {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  min-height: 100%;
+  
+  padding-left: var(--LyricsPaddingLeft);
+  padding-right: var(--LyricsPaddingRight);
+  padding-top: 25vh;
+  padding-bottom: 45vh;
+  
+  will-change: transform;
+  
+  --vocal-lyrics-scale: 7;
+  --maximum-lyrics-size: 3.5rem;
+  --minimum-lyrics-size: 1.85rem;
+}
+
+/* No Lyrics Message */
+.NoLyrics {
+  display: flex;
+  position: absolute;
+  left: 50cqw;
+  top: 50cqh;
+  transform: translate(-50%, -50%);
+  font-size: 3cqw;
+  color: white;
+  opacity: 0.5;
+  font-weight: 500;
+}
+
+/* Vocals Group */
+.VocalsGroup {
+  margin: 0;
+  padding: 0;
+  border: 0;
+  display: flex;
+  flex-direction: column;
+  background-color: transparent;
+  outline: none;
+  appearance: none;
+  line-height: 1.3;
+  letter-spacing: 0em;
+  transition: color 0.1s, transform 0.1s ease-in-out, padding 0.1s ease-in-out;
+  font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
+  unicode-bidi: isolate;
+  margin-top: 0.5rem;
+  margin-bottom: 0.5rem;
+  will-change: transform;
+  direction: ltr;
+  text-align: left;
+}
+
+/* Vocals Container */
+.Vocals {
+  display: flex;
+  flex-wrap: wrap;
+  transition: opacity 0.25s cubic-bezier(0.61, 1, 0.88, 1);
+  --lyrics-size: clamp(var(--minimum-lyrics-size), 3.5vw, var(--maximum-lyrics-size));
+  will-change: transform, opacity;
+  width: 100%;
+}
+
+/* Lead Vocals */
+.Vocals.Lead {
+  opacity: var(--vocal-idle-opacity) !important;
+  font-size: var(--lyrics-size) !important;
+  font-weight: 700 !important;
+}
+
+.Vocals.Lead.Sung {
+  opacity: var(--vocal-sung-opacity) !important;
+}
+
+.Vocals.Lead.Active {
+  opacity: var(--vocal-active-opacity) !important;
+}
+
+/* Lyric Base */
+.Lyric {
+  position: relative;
+  white-space: pre-wrap;
+  word-wrap: break-word;
+}
+
+/* Static Lyric */
+.Lyric.Static {
+  display: flex;
+  margin: -0.5px -0.75px -0.5px -0.75px;
+  padding: 0.5px 0.75px 0.5px 0.75px;
+  background-color: rgb(255, 255, 255);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+}
+
+/* Line-Synced Lyric */
+.Lyric.Line {
+  --gradient-angle: 180deg;
+  --gradient-offset: -20%;
+  --gradient-color: 255;
+  --gradient-color-alpha: 0.4;
+  --gradient-color-alpha-active: 0.85;
+  --text-shadow-blur-radius: 20px;
+  --text-shadow-opacity: 0.3;
+  
+  display: flex;
+  white-space: pre-wrap;
+  margin: -0.5px -0.75px -0.5px -0.75px;
+  padding: 0.5px 0.75px 0.5px 0.75px;
+  
+  background-color: rgb(255, 255, 255);
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text;
+  
+  text-shadow: 0 0 0 rgba(var(--gradient-color), var(--gradient-color), var(--gradient-color), var(--gradient-color-alpha));
+  
+  will-change: text-shadow, background-image, transform;
+}
+
+.Vocals.Lead .Lyric.Line {
+  transition: 
+    background-color 0.3s cubic-bezier(0.61, 1, 0.88, 1),
+    scale 0.1s cubic-bezier(0.37, 0, 0.63, 1);
+  transform-origin: left center;
+}
+
+.Vocals.Lead.Active .Lyric.Line {
+  --gradient-offset: 0%;
+  scale: 1.05;
+  
+  background-image: linear-gradient(
+    var(--gradient-angle),
+    rgba(var(--gradient-color), var(--gradient-color), var(--gradient-color), var(--gradient-color-alpha-active)) var(--gradient-progress, 0%),
+    rgba(var(--gradient-color), var(--gradient-color), var(--gradient-color), var(--gradient-color-alpha)) calc(var(--gradient-progress, 0%) + 20% + var(--gradient-offset))
+  );
+  text-shadow: 0 0 var(--text-shadow-blur-radius) rgba(255, 255, 255, var(--text-shadow-opacity));
+}
+
+.Vocals.Sung .Lyric.Line {
+  text-shadow: 0 0 0 rgba(var(--gradient-color), var(--gradient-color), var(--gradient-color), var(--gradient-color-alpha-active));
+}
+
+/* Smooth Scrolling */
+.LyricsScrollContainer:not(.UserScrolling) {
+  scroll-behavior: smooth;
+}
+
+.LyricsScrollContainer.InstantScroll {
+  scroll-behavior: auto;
+}
+
+/* Responsive Design */
+@media (max-width: 1400px) {
+  .BeautifulLyricsPage.Fullscreen .Content {
+    --PlayPanelWidth: min(28vw, 45vh);
+  }
+}
+
+@media (max-width: 1200px) {
+  .BeautifulLyricsPage.Fullscreen .Content {
+    --PlayPanelWidth: min(32vw, 50vh);
+    --LyricsPaddingRight: 10vw;
+  }
+  
+  .Lyrics {
+    --maximum-lyrics-size: 3rem;
+    --minimum-lyrics-size: 1.6rem;
+  }
+}
+
+@media (max-width: 1024px) {
+  .BeautifulLyricsPage.Fullscreen .Content {
+    --LyricsPaddingLeft: 5vw;
+    --LyricsPaddingRight: 5vw;
+    flex-direction: column;
+  }
+  
+  .BeautifulLyricsPage.Fullscreen .Content:has(.PlayPanel) {
+    --LyricsPaddingLeft: 5vw;
+  }
+  
+  .PlayPanel {
+    position: static;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    padding-top: 8vh;
+    padding-bottom: 2vh;
+    height: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  
+  .MediaSpace {
+    width: 80%;
+    max-width: 320px;
+  }
+  
+  .TrackInfo {
+    width: 90%;
+    max-width: 400px;
+  }
+  
+  .ProgressSection {
+    width: 90%;
+    max-width: 400px;
+  }
+  
+  .LyricsScrollContainer {
+    height: calc(100vh - 60vh);
+  }
+  
+  .Lyrics {
+    --maximum-lyrics-size: 2.5rem;
+    --minimum-lyrics-size: 1.5rem;
+    padding-top: 5vh !important;
+    padding-bottom: 20vh !important;
+  }
+  
+  .VocalsGroup {
+    margin-top: 0.8rem;
+    margin-bottom: 0.8rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .BeautifulLyricsPage.Fullscreen .Content {
+    --LyricsPaddingLeft: 4vw;
+    --LyricsPaddingRight: 4vw;
+  }
+  
+  .BeautifulLyricsPage.Fullscreen .Content:has(.PlayPanel) {
+    --LyricsPaddingLeft: 4vw;
+  }
+  
+  .PlayPanel {
+    padding-top: 5vh;
+    padding-bottom: 1.5vh;
+  }
+  
+  .MediaSpace {
+    width: 70%;
+    max-width: 280px;
+    margin-bottom: 3%;
+  }
+  
+  .TrackInfo {
+    margin-bottom: 3%;
+  }
+  
+  .TrackName {
+    font-size: clamp(1.1rem, 4vw, 1.3rem);
+  }
+  
+  .ArtistName {
+    font-size: clamp(0.9rem, 3.5vw, 1rem);
+  }
+  
+  .AlbumName {
+    font-size: clamp(0.8rem, 3vw, 0.9rem);
+  }
+  
+  .Lyrics {
+    --maximum-lyrics-size: 2rem;
+    --minimum-lyrics-size: 1.3rem;
+    padding-top: 3vh !important;
+  }
+  
+  .Vocals {
+    --lyrics-size: clamp(var(--minimum-lyrics-size), 5vw, var(--maximum-lyrics-size));
+  }
+}
+
+@media (max-width: 480px) {
+  .BeautifulLyricsPage.Fullscreen .Content {
+    --LyricsPaddingLeft: 5vw;
+    --LyricsPaddingRight: 5vw;
+  }
+  
+  .PlayPanel {
+    padding-top: 4vh;
+  }
+  
+  .MediaSpace {
+    width: 65%;
+    max-width: 240px;
+  }
+  
+  .TrackName {
+    font-size: clamp(1rem, 4.5vw, 1.2rem);
+    margin-bottom: 0.4rem;
+  }
+  
+  .ArtistName {
+    font-size: clamp(0.85rem, 4vw, 0.95rem);
+  }
+  
+  .AlbumName {
+    font-size: clamp(0.75rem, 3.5vw, 0.85rem);
+  }
+  
+  .ProgressBar {
+    height: 3px;
+  }
+  
+  .TimeDisplay {
+    font-size: clamp(0.7rem, 3vw, 0.8rem);
+  }
+  
+  .Lyrics {
+    --maximum-lyrics-size: 1.8rem;
+    --minimum-lyrics-size: 1.2rem;
+  }
+  
+  .VocalsGroup {
+    margin-top: 0.6rem;
+    margin-bottom: 0.6rem;
+  }
+  
+  .NoLyrics {
+    font-size: 1.3rem;
+  }
+}
+
+/* Landscape Mode for Tablets */
+@media (max-width: 1024px) and (orientation: landscape) {
+  .PlayPanel {
+    flex-direction: row;
+    padding-top: 5vh;
+    max-width: 90vw;
+    gap: 4vw;
+  }
+  
+  .MediaSpace {
+    width: 35vh;
+    max-width: 280px;
+    margin-bottom: 0;
+  }
+  
+  .TrackInfo {
+    flex: 1;
+    text-align: left;
+    margin-bottom: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  
+  .ProgressSection {
+    position: absolute;
+    bottom: 2vh;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 80vw;
+    max-width: 600px;
+  }
+  
+  .Lyrics {
+    padding-top: 3vh !important;
+  }
+}
+
+/* Extra Large Screens */
+@media (min-width: 1920px) {
+  .BeautifulLyricsPage.Fullscreen .Content {
+    --PlayPanelWidth: min(25vw, 50vh);
+    --LyricsPaddingRight: 20vw;
+  }
+  
+  .Lyrics {
+    --maximum-lyrics-size: 4rem;
+    --minimum-lyrics-size: 2rem;
+  }
+}
+
+/* Touch Device Optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .LyricsScrollContainer {
+    -webkit-overflow-scrolling: touch;
+    scroll-padding: 20vh 0;
+  }
+  
+  .Vocals {
+    user-select: none;
+    -webkit-user-select: none;
+  }
+  
+  .PlayPanel {
+    touch-action: pan-y;
+  }
+}
