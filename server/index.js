@@ -53,8 +53,15 @@ app.get('/api/current-track', async (req, res) => {
   }
 
   try {
-    spotifyApi.setAccessToken(access_token);
-    const data = await spotifyApi.getMyCurrentPlaybackState();
+    // Create a new Spotify API instance for this request to avoid token conflicts
+    const userSpotifyApi = new SpotifyWebApi({
+      clientId: process.env.SPOTIFY_CLIENT_ID,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
+      redirectUri: process.env.SPOTIFY_REDIRECT_URI
+    });
+    userSpotifyApi.setAccessToken(access_token);
+    
+    const data = await userSpotifyApi.getMyCurrentPlaybackState();
     
     if (!data.body || !data.body.item) {
       return res.json({ isPlaying: false });

@@ -145,7 +145,7 @@ function App() {
           setError('');
         } else {
           setCurrentTrack(null);
-          setLyrics('');
+          setLyricsData(null);
         }
       } catch (err) {
         console.error('Error fetching track:', err);
