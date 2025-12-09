@@ -724,6 +724,11 @@ body {
   }
 }
 
+a {
+  color: white;
+  text-decoration: none;
+}   
+
 /* Footer */
 .AppFooter {
   position: fixed;

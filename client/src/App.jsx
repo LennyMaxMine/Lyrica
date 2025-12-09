@@ -241,7 +241,7 @@ function App() {
       {!accessToken ? (
         <div className="login-view">
           <h1>Lyrica</h1>
-          <p><a href="https://github.com/LennyMaxMine/Lyrica" target="_blank" rel="noopener noreferrer">View this Project on Github and help improve it</a></p>
+          <p><a href="https://github.com/LennyMaxMine/Lyrica" target="_blank" rel="noopener noreferrer">Click this to view this Project on Github and help improve it</a></p>
           <button className="login-btn" onClick={handleLogin}>
             Connect Spotify
           </button>
