@@ -1,6 +1,8 @@
 import { useState, useEffect, useRef } from 'react'
 import './App.css'
 
+const API_BASE_URL = import.meta.env.PROD ? '' : 'http://localhost:5000';
+
 function App() {
   const [accessToken, setAccessToken] = useState('');
   const [currentTrack, setCurrentTrack] = useState(null);
@@ -133,7 +135,7 @@ function App() {
 
     const fetchCurrentTrack = async () => {
       try {
-        const response = await fetch(`http://localhost:5000/api/current-track?access_token=${accessToken}`);
+        const response = await fetch(`${API_BASE_URL}/api/current-track?access_token=${accessToken}`);
         const data = await response.json();
         
         if (data.isPlaying) {
@@ -166,7 +168,7 @@ function App() {
     const fetchLyrics = async () => {
       try {
         const response = await fetch(
-          `http://localhost:5000/api/lyrics?track=${encodeURIComponent(currentTrack.name)}&artist=${encodeURIComponent(currentTrack.artist)}`
+          `${API_BASE_URL}/api/lyrics?track=${encodeURIComponent(currentTrack.name)}&artist=${encodeURIComponent(currentTrack.artist)}`
         );
         const data = await response.json();
         
@@ -193,7 +195,7 @@ function App() {
 
   const handleLogin = async () => {
     try {
-      const response = await fetch('http://localhost:5000/auth/login');
+      const response = await fetch(`${API_BASE_URL}/auth/login`);
       const data = await response.json();
       window.location.href = data.url;
     } catch (err) {

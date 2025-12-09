@@ -3,9 +3,12 @@ const express = require('express');
 const cors = require('cors');
 const axios = require('axios');
 const SpotifyWebApi = require('spotify-web-api-node');
+const path = require('path');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
+const IS_PRODUCTION = process.env.NODE_ENV === 'production';
+const CLIENT_URL = IS_PRODUCTION ? `http://localhost:${PORT}` : 'http://localhost:5173';
 
 // Spotify API Setup
 const spotifyApi = new SpotifyWebApi({
@@ -33,10 +36,10 @@ app.get('/callback', async (req, res) => {
     const { access_token, refresh_token, expires_in } = data.body;
     
     // Redirect back to frontend with token
-    res.redirect(`http://localhost:5173?access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`);
+    res.redirect(`${CLIENT_URL}?access_token=${access_token}&refresh_token=${refresh_token}&expires_in=${expires_in}`);
   } catch (error) {
     console.error('Error getting tokens:', error);
-    res.redirect('http://localhost:5173?error=auth_failed');
+    res.redirect(`${CLIENT_URL}?error=auth_failed`);
   }
 });
 
@@ -111,11 +114,24 @@ app.get('/api/lyrics', async (req, res) => {
   }
 });
 
+// Serve static files in production
+if (IS_PRODUCTION) {
+  app.use(express.static(path.join(__dirname, '../client/dist')));
+  
+  app.get('*', (req, res) => {
+    res.sendFile(path.join(__dirname, '../client/dist/index.html'));
+  });
+}
+
 // Test route
 app.get('/api', (req, res) => {
   res.json({ message: 'Lyrica Spotify Lyrics API' });
 });
 
 app.listen(PORT, () => {
+  console.log(`🎵 Lyrica server running on port ${PORT}`);
+  console.log(`Environment: ${IS_PRODUCTION ? 'production' : 'development'}`);
+  console.log(`Client URL: ${CLIENT_URL}`);
+});
   console.log(`Server running on http://localhost:${PORT}`);
 });

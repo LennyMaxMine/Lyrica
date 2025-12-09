@@ -1,0 +1,23 @@
+services:
+  lyrica:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: lyrica
+    ports:
+      - "912:912"
+    environment:
+      - NODE_ENV=production
+      - PORT=912
+      - SPOTIFY_CLIENT_ID=${SPOTIFY_CLIENT_ID}
+      - SPOTIFY_CLIENT_SECRET=${SPOTIFY_CLIENT_SECRET}
+      - SPOTIFY_REDIRECT_URI=${SPOTIFY_REDIRECT_URI}
+    env_file:
+      - .env
+    restart: unless-stopped
+    networks:
+      - lyrica-network
+
+networks:
+  lyrica-network:
+    driver: bridge
