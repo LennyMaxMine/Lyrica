@@ -83,7 +83,37 @@ app.get('/api/current-track', async (req, res) => {
     });
   } catch (error) {
     console.error('Error fetching current track:', error);
-    res.status(500).json({ error: 'Failed to fetch current track' });
+    
+    // Handle specific Spotify API errors
+    if (error.statusCode === 403) {
+      return res.status(403).json({ 
+        error: 'Access forbidden - token may be expired or invalid',
+        details: 'Please log in again',
+        statusCode: 403
+      });
+    }
+    
+    if (error.statusCode === 401) {
+      return res.status(401).json({ 
+        error: 'Unauthorized - invalid access token',
+        details: 'Please log in again',
+        statusCode: 401
+      });
+    }
+    
+    if (error.statusCode === 429) {
+      return res.status(429).json({ 
+        error: 'Rate limited by Spotify API',
+        details: 'Too many requests, please wait a moment',
+        statusCode: 429
+      });
+    }
+    
+    res.status(500).json({ 
+      error: 'Failed to fetch current track',
+      details: error.message || 'Unknown error',
+      statusCode: error.statusCode || 500
+    });
   }
 });
 

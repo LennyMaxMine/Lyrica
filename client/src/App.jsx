@@ -140,6 +140,20 @@ function App() {
         const response = await fetch(`${API_BASE_URL}/api/current-track?access_token=${accessToken}`);
         const data = await response.json();
         
+        // Handle authentication errors
+        if (response.status === 403 || response.status === 401) {
+          console.log('Token expired or invalid, clearing session');
+          setAccessToken('');
+          setCurrentTrack(null);
+          setLyricsData(null);
+          setError('Session expired. Please log in again.');
+          return;
+        }
+        
+        if (!response.ok) {
+          throw new Error(data.error || `HTTP ${response.status}`);
+        }
+        
         if (data.isPlaying) {
           setCurrentTrack(data.track);
           setError('');
