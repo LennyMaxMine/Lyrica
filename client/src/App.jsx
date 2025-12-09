@@ -241,7 +241,7 @@ function App() {
       {!accessToken ? (
         <div className="login-view">
           <h1>Lyrica</h1>
-          <p>Beautiful synchronized lyrics for Spotify</p>
+          <p><a href="https://github.com/LennyMaxMine/Lyrica" target="_blank" rel="noopener noreferrer">View this Project on Github and help improve it</a></p>
           <button className="login-btn" onClick={handleLogin}>
             Connect Spotify
           </button>
@@ -319,7 +319,7 @@ function App() {
       
       <footer className="AppFooter">
         <div className="FooterContent">
-          Proof of Concept      Early Alpha - Expect & Report bugs to https://bugs.lny.tf      Not affiliated with Spotify      Built by Lenny  
+          Proof of Concept      Early Alpha - Expect & Report bugs to <a href="https://bugs.lny.tf" z-ind target="_blank" rel="noopener noreferrer">bugs.lny.tf</a>      Not affiliated with Spotify      Built by <a href="https://github.com/lennymaxmine" target="_blank" rel="noopener noreferrer">Lenny</a>  
         </div>
       </footer>
     </div>
