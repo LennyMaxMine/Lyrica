@@ -360,6 +360,12 @@ body {
   font-weight: 500;
 }
 
+/* Center PlayPanel when no lyrics are available */
+.BeautifulLyricsPage.Fullscreen .Content:has(.NoLyrics) .PlayPanel {
+  left: 50vw;
+  transform: translateX(-50%);
+}
+
 /* Vocals Group */
 .VocalsGroup {
   margin: 0;

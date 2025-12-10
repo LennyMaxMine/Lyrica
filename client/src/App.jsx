@@ -204,7 +204,7 @@ function App() {
             lyricsContainerRef.current.scrollTo({ top: 0, behavior: 'smooth' });
           }
         } else {
-          setLyricsData({ raw: 'Lyrics not available for this track', synced: false, lines: [] });
+          setLyricsData({ raw: ' ', synced: false, lines: [] });
           
           // Scroll to top even when no lyrics are available
           if (lyricsContainerRef.current) {
@@ -293,7 +293,7 @@ function App() {
             
             <div className="LyricsScrollContainer" ref={lyricsContainerRef}>
               {lyricsData ? (
-                lyricsData.synced ? (
+                lyricsData.synced && lyricsData.lines.length > 0 ? (
                   <div className="Lyrics">
                     {lyricsData.lines.map((line, index) => (
                       <div
@@ -311,7 +311,7 @@ function App() {
                       </div>
                     ))}
                   </div>
-                ) : (
+                ) : lyricsData.raw && lyricsData.raw !== ' ' && lyricsData.raw !== 'Failed to load lyrics' ? (
                   <div className="Lyrics">
                     <div className="VocalsGroup">
                       <div className="Vocals Lead">
@@ -321,6 +321,8 @@ function App() {
                       </div>
                     </div>
                   </div>
+                ) : (
+                  <div className="NoLyrics">{lyricsData.raw}</div>
                 )
               ) : currentTrack ? (
                 <div className="NoLyrics">Loading lyrics...</div>
