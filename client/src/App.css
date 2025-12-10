@@ -176,6 +176,7 @@ body {
   z-index: 102;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif;
   container-type: size;
+  transition: left 0.6s cubic-bezier(0.4, 0, 0.2, 1), transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* Media Space (Album Cover Container) */
@@ -200,6 +201,7 @@ body {
   height: 100%;
   object-fit: cover;
   display: block;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 /* Track Info */
@@ -207,6 +209,7 @@ body {
   width: 100%;
   margin-bottom: 5%;
   text-align: center;
+  animation: fadeIn 0.5s ease-in-out;
 }
 
 .TrackName {
@@ -340,11 +343,13 @@ body {
   padding-top: 25vh;
   padding-bottom: 45vh;
   
-  will-change: transform;
+  will-change: transform, opacity;
   
   --vocal-lyrics-scale: 7;
   --maximum-lyrics-size: 3.5rem;
   --minimum-lyrics-size: 1.85rem;
+  
+  animation: fadeInDelayed 0.5s ease-in-out;
 }
 
 /* No Lyrics Message */
@@ -358,6 +363,7 @@ body {
   color: white;
   opacity: 0.5;
   font-weight: 500;
+  animation: fadeIn 0.4s ease-in-out;
 }
 
 /* Center PlayPanel when no lyrics are available */
@@ -378,12 +384,12 @@ body {
   appearance: none;
   line-height: 1.3;
   letter-spacing: 0em;
-  transition: color 0.1s, transform 0.1s ease-in-out, padding 0.1s ease-in-out;
+  transition: color 0.1s, transform 0.1s ease-in-out, padding 0.1s ease-in-out, opacity 0.3s ease-in-out;
   font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', sans-serif !important;
   unicode-bidi: isolate;
   margin-top: 0.5rem;
   margin-bottom: 0.5rem;
-  will-change: transform;
+  will-change: transform, opacity;
   direction: ltr;
   text-align: left;
 }
@@ -727,6 +733,42 @@ body {
   
   .PlayPanel {
     touch-action: pan-y;
+  }
+}
+
+/* Keyframe Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeInDelayed {
+  0% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  50% {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
   }
 }
 

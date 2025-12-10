@@ -182,6 +182,10 @@ function App() {
       return;
     }
 
+    // Immediately clear lyrics when a new song is detected
+    setLyricsData(null);
+    setCurrentLineIndex(-1);
+
     const fetchLyrics = async () => {
       try {
         const response = await fetch(
@@ -325,7 +329,7 @@ function App() {
                   <div className="NoLyrics">{lyricsData.raw}</div>
                 )
               ) : currentTrack ? (
-                <div className="NoLyrics">Loading lyrics...</div>
+                <div className="NoLyrics" style={{visibility: 'hidden'}}>Loading lyrics...</div>
               ) : (
                 <div className="NoLyrics">No track playing</div>
               )}
