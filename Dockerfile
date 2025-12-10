@@ -1,5 +1,5 @@
 # Build stage for client
-FROM node:20-alpine AS client-builder
+FROM node:lts-alpine AS client-builder
 
 WORKDIR /app/client
 
@@ -10,7 +10,7 @@ COPY client/ ./
 RUN npm run build
 
 # Production stage
-FROM node:20-alpine
+FROM node:lts-alpine
 
 WORKDIR /app
 
