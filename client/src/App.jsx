@@ -90,9 +90,10 @@ function App() {
       return;
     }
 
-    const progress = currentTrack.progress;
+    // Add 100ms offset to make lyrics appear ahead of the song
+    const progress = currentTrack.progress + 100;
     
-    // Find the current line based on progress
+    // Find the current line based on progress (with offset)
     let lineIndex = -1;
     for (let i = lyricsData.lines.length - 1; i >= 0; i--) {
       if (progress >= lyricsData.lines[i].time) {
